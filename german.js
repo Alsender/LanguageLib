@@ -39,7 +39,18 @@ const irregs = {
     halten : {
         present : {thirdSg : "hält"},
         preterit : {secondSg: "hieltest,hieltst"}},
-    müssen : {present : {secondSg: "müsst"}},
+    können : {present : {
+        firstPl : "können",
+        secondPl: "könnt",
+        thirdPl : "können"}},
+    müssen : {present : {
+        firstPl : "müssen",
+        secondPl: "müsst",
+        thirdPl : "müssen"}},
+    wollen : {present : {
+        firstPl : "wollen",
+        secondPl: "wollt",
+        thirdPl : "wollen"}},
     tun : {
         present : {firstPl: "tun"},
         preterit: {secondSg: "tatest,tatst" }},
@@ -56,119 +67,115 @@ const irregs = {
             firstSg : "fragte,frug",   firstPl : "fragten,frugen",
             secondSg: "fragtest,frugst", secondPl: "fragtet,frugt",
             thirdSg : "fragte,frug",   thirdPl : "fragten,frugen"}},
-    reden : {present : {secondPl: "redet"}},
     tanzen : {present : {secondSg: "tanzt"}},
-    kosten : {present : {secondPl: "kostet"}},
     verbessern : {present : {firstSg: "verbessre,verbessere,verbesser"}},
     lächeln : {present : {firstSg : "lächle,lächele,lächel"}}, //need to look into present -en endings
-    arbeiten : {present : {secondPl : "arbeitet"}},
-    schalten : {present : {secondPl : "schaltet"}}
 }
 
-const german = {}
+var german = {}
 
 const verbs = {
-    //: {english: "", infinitive : "", strength : "", thirdSgPres : "", pastStem : "", pastPart : "", pastSubj : "", aux : ""},
-    sein : {verb : "sein", english : "be", prep : "", presentStem : ["",""], strength : "strong", preteriteStem : "war", pastPart : "gewesen", aux : "sein"},
-    haben : {verb : "haben", english : "have", prep : "", presentStem : ["",""], strength : "weak", preteriteStem : "hat", pastPart : "gehabt", aux : "haben"},
-    werden : {verb : "werden", english : "become", prep : "", presentStem : ["",""], strength : "strong", preteriteStem : "wurd", pastPart : "geworden", aux : "sein"},
-    kommen : {verb : "kommen", english : "come", prep: "", presentStem : ["komm","komm"], strength : "strong", preteriteStem : "kam", pastPart : "gekommen", aux : "sein"},
-    ankommen : {verb : "ankommen", english : "arrive", prep : "an", presentStem : ["komm","komm"], strength : "strong", preteriteStem : "kam", pastPart : "angekommen", aux: "sein"},
-    verlassen: {verb : "verlassen", english : "leave", prep : "", presentStem : ["verlass","verläss"], strength : "strong", preteriteStem : "verließ", pastPart : "verlassen", aux: "haben"},
-    fahren : {verb : "fahren", english : "drive, ride", prep: "", presentStem : ["fahr","fähr"], strength : "strong", preteriteStem : "fuhr", pastPart : "gefahren", aux : "sein,haben"},
-    halten : {verb : "halten", english : "hold, keep", prep : "", presentStem : ["halt","hält"], strength : "strong", preteriteStem : "hielt", pastPart : "gehalten", aux : "haben"},
-    schlafen : {verb : "schlafen", english : "sleep", prep : "", presentStem : ["schlaf","schläf"], strength : "strong", preteriteStem : "schlief", pastPart : "geschlafen", aux : "haben"},
-    erhalten : {verb : "erhalten", english : "revieve, get", prep : "", presentStem : ["erhalt","erhält"], strength : "strong", preteriteStem : "hielt", pastPart : "erhalten", aux : "haben"},
-    fangen : {verb : "fangen", english : "catch", prep : "", presentStem : ["fang","fäng"], strength : "strong", preteriteStem : "fing", pastPart : "gefangen", aux : "haben"},
-    anfangen : {verb : "anfangen", english : "begin", prep : "an", presentStem : ["fang","fäng"], strength : "strong", preteriteStem : "fing", pastPart : "angefangen", aux : "haben"},
-    fallen : {verb : "fallen", english : "fall", prep : "", presentStem : ["fall","fäll"], strength : "strong", preteriteStem : "fiel", pastPart : "gefallen", aux : "sein"},
-    vergessen : {verb : "vergessen", english : "forget", prep : "", presentStem : ["vergess","vergiss"], strength : "strong", preteriteStem : "vergaß", pastPart : "vergessen", aux : "haben"},
-    essen : {verb : "essen", english : "eat", prep : "", presentStem : ["ess","iss"], strength : "strong", preteriteStem : "aß", pastPart : "gegessen", aux : "haben"},
-    sterben : {verb : "sterben", english : "die", prep : "", presentStem : ["sterb","stirb"], strength : "strong", preteriteStem : "starb", pastPart : "gestorben", aux : "sein"},
-    nehmen : {verb : "nehmen", english : "take", prep : "", presentStem : ["nehm","nimm"], strength : "strong", preteriteStem : "nahm", pastPart : "genommen", aux : "haben"},
-    geschehen : {verb : "geschehen", english : "happen", prep : "", presentStem : ["gescheh","geschieh"], strength : "strong", preteriteStem : "geschah", pastPart : "geschehen", aux : "sein"},
-    helfen : {verb : "helfen", english : "help", prep : "", presentStem : ["helf","hilf"], strength : "strong", preteriteStem : "half", pastPart : "geholfen", aux : "haben"},
-    lesen : {verb : "lesen", english : "read", prep : "", presentStem : ["les","lies"], strength : "strong", preteriteStem : "las", pastPart : "gelesen", aux : "haben"},
-    sprechen : {verb : "sprechen", english : "speak", prep : "", presentStem : ["sprech","sprich"], strength : "strong", preteriteStem : "sprach", pastPart : "gesprochen", aux : "haben"},
-    geben : {verb : "geben", english : "give", prep : "", presentStem : ["geb","gib"], strength : "strong", preteriteStem : "gab", pastPart : "gegeben", aux : "haben"},
-    treffen : {verb : "treffen", english : "meet", prep : "", presentStem : ["treff","triff"], strength : "strong", preteriteStem : "traf", pastPart : "getroffen", aux : "haben"},
-    sehen : {verb : "sehen", english : "see", prep : "", presentStem : ["seh","sieh"], strength : "string", preteriteStem : "sah", pastPart : "gesehen", aux : "haben"},
-    können : {verb : "können", english : "can", prep : "", presentStem : ["könn","kann"], strength : "prt-prs", preteriteStem : "konn", pastPart : "gekonnt", aux : "haben"},
-    müssen : {verb : "müssen", english : "must", prep : "", presentStem : ["müss","muss"], strength : "prt-prs", preteriteStem : "muss", pastPart : "müssen", aux : "haben"},
-    wollen : {verb : "wollen", english : "want", prep : "", presentStem : ["woll","will"], strength : "prt-prs", preteriteStem : "woll", pastPart : "", aux : "haben"},
-    wissen : {verb : "wissen", english : "know", prep : "", presentStem : ["wiss","wieß"], strength : "prt-prs", preteriteStem : "wuss", pastPart : "gewusst", aux : "haben"},
-    tun : {verb : "tun", english : "do", prep : "", presentStem : ["tu","tu"], strength : "weak", preteriteStem : "ta", pastPart : "getan", aux : "haben"},
-    gehen : {verb : "gehen", english : "go, walk, leave", prep : "", presentStem : ["geh","geh"], strength : "strong", preteriteStem : "ging", pastPart : "gegangen", aux : "sein"},
-    schreiben : {verb : "schreiben", english : "write", prep : "", presentStem : ["schreib","schreib"], strength : "strong", preteriteStem : "schrieb", pastPart : "geschrieben", aux : "haben"},
-    erkennen : {verb : "erkennen", english : "recognise", prep : "", presentStem : ["erkenn","erkenn"], strength : "weak", preteriteStem : "erkann", pastPart : "erkannt", aux : "haben"},
-    beschreiben : {verb : "beschreiben", english : "describe", prep : "", presentStem : ["beschreib","beschreib"], strength : "strong", preteriteStem : "beschrieb", pastPart : "beschrieben", aux : "haben"},
-    schreien : {verb : "schreien", english : "scream", prep : "", presentStem : ["schrei","schrei"], strength : "strong", preteriteStem : "schrie", pastPart : "geschrien", aux : "haben"},
-    trinken : {verb : "trinken", english : "drink", prep : "", presentStem : ["trink","trink"], strength : "strong", preteriteStem : "trank", pastPart : "getrunken", aux : "haben"},
-    denken : {verb : "denken", english : "think", prep : "", presentStem : ["denk","denk"], strength : "weak", preteriteStem : "dach", pastPart : "gedacht", aux : "haben"},
-    entscheiden : {verb : "entscheiden", english : "decide", prep : "", presentStem : ["entscheid","entscheid"], strength : "strong", preteriteStem : "entschied", pastPart : "entschieden", aux : "haben"},
-    verstehen : {verb : "verstehen", english : "understand", prep : "", presentStem : ["versteh","versteh"], strength : "strong", preteriteStem : "verstand", pastPart : "verstanden", aux : "haben"},
-    finden : {verb : "finden", english : "find", prep : "", presentStem : ["find","find"], strength : "strong", preteriteStem : "fand", pastPart : "gefunden", aux : "haben"},
-    singen : {verb : "singen", english : "sing", prep : "", presentStem : ["sing","sing"], strength : "strong", preteriteStem : "sang", pastPart : "gesungen", aux : "haben"},
-    sitzen : {verb : "sitzen", english : "sit", prep : "", presentStem : ["sitz","sitz"], strength : "strong", preteriteStem : "saß", pastPart : "gesessen", aux : "sein,haben"},
-    lügen : {verb : "lügen", english : "lie", prep : "", presentStem : ["lüg","lüg"], strength : "strong", preteriteStem : "log", pastPart : "gelogen", aux : "haben"},
-    anbieten : {verb : "anbieten", english : "offer", prep : "an", presentStem : ["biet","biete"], strength : "strong", preteriteStem : "bot", pastPart : "angeboten", aux : "haben"},
-    bringen : {verb : "bringen", english : "bring", prep : "", presentStem : ["bring","bring"], strength : "weak", preteriteStem : "brach", pastPart : "gebracht", aux : "haben"},
-    brennen : {verb : "brennen", english : "burn", prep : "", presentStem : ["brenn","brenn"], strength : "weak", preteriteStem : "brann", pastPart : "gebrannt", aux : "haben"},
-    schneiden : {verb : "schneiden", english : "cut", prep : "", presentStem : ["schneid","schneid"], strength : "strong", preteriteStem : "schnitt", pastPart : "geschnitten", aux : "haben"},
-    beginnen : {verb : "beginnen", english : "start, begin", prep : "", presentStem : ["beginn","beginn"], strength : "strong", preteriteStem : "begann", pastPart : "begonnen", aux : "haben"},
-    gewinnen : {verb : "gewinnen", english : "win", prep : "", presentStem : ["gewinn","gewinn"], strength : "strong", preteriteStem : "gewann", pastPart : "gewonnen", aux : "haben"},
-    bleiben : {verb : "bleiben", english : "stay, last", prep : "", presentStem : ["bleib","bleib"], strength : "strong", preteriteStem : "blieb", pastPart : "geblieben", aux : "sein"},
-    rennen : {verb : "rennen", english : "run", prep : "", presentStem : ["renn","renn"], strength : "strong", preteriteStem : "rann", pastPart : "gerannt", aux : "sein,haben"},
-    verlieren : {verb : "verlieren", english : "lose", prep : "", presentStem : ["verlier","verlier"], strength : "strong", preteriteStem : "verlor", pastPart : "verloren", aux : "haben"},
-    rufen : {verb : "rufen", english : "call", prep : "", presentStem : ["ruf","ruf"], strength : "strong", preteriteStem : "rief", pastPart : "gerufen", aux : "haben"},
-    heißen : {verb : "heißen", english : "mean", prep : "", presentStem : ["heiß","heiß"], strength : "strong", preteriteStem : "hieß", pastPart : "geheißen", aux : "haben"},
-    lernen : {verb : "lernen", english : "learn", prep : "", presentStem : ["lern","lern"], strength : "weak", preteriteStem : "lern", pastPart : "gelernt", aux : "haben"},
-    machen : {verb : "machen", english : "do, make", prep : "", presentStem : ["mach","mach"], strength : "weak", preteriteStem : "mach", pastPart : "gemacht", aux : "haben"},
-    besuchen : {verb : "besuchen", english : "visit", prep : "", presentStem : ["besuch","besuch"], strength : "weak", preteriteStem : "besuch", pastPart : "besucht", aux : "haben"},
-    reisen : {verb : "reisen", english : "travel", prep : "", presentStem : ["reis","reis"], strength : "weak", preteriteStem : "reis", pastPart : "gereist", aux : "sein"},
-    brauchen : {verb : "brauchen", english : "need", prep : "", presentStem : ["brauch","brauch"], strength : "weak", preteriteStem : "brauch", pastPart : "gebraucht", aux : "haben"},
-    legen : {verb : "legen", english : "lay, put", prep : "", presentStem : ["leg","leg"], strength : "weak", preteriteStem : "leg", pastPart : "gelegt", aux : "haben"},
-    zeigen : {verb : "zeigen", english : "show", prep : "", presentStem : ["zeig","zeig"], strength : "weak", preteriteStem : "zeig", pastPart : "gezeigt", aux : "haben"},
-    hören : {verb : "hören", english : "hear", prep : "", presentStem : ["hör","hör"], strength : "weak", preteriteStem : "hör", pastPart : "gehört", aux : "haben"},
-    schauen : {verb : "schauen", english : "look", prep : "", presentStem : ["schau","schau"], strength : "weak", preteriteStem : "schau", pastPart : "geschaut", aux : "haben"},
-    sagen : {verb : "sagen", english : "say", prep : "", presentStem : ["sag","sag"], strength : "weak", preteriteStem : "sag", pastPart : "gesagt", aux : "haben"},
-    erklären : {verb : "erklären", english : "explain", prep : "", presentStem : ["erklär","erklär"], strength : "weak", preteriteStem : "erklär", pastPart : "erklärt", aux : "haben"},
-    erzählen : {verb : "erzählen", english : "tell", prep : "", presentStem : ["erzähl","erzähl"], strength : "weak", preteriteStem : "erzähl", pastPart : "erzählt", aux : "haben"},
-    fragen : {verb : "fragen", english : "ask", prep : "", presentStem : ["frag","frag"], strength : "weak", preteriteStem : "frag", pastPart : "gefragt", aux : "haben"},
-    reden : {verb : "reden", english : "talk", prep : "", presentStem : ["red","rede"], strength : "weak", preteriteStem : "rede", pastPart : "geredet", aux : "haben"},
-    wiederholen : {verb : "wiederholen", english : "repeat", prep : "", presentStem : ["wiederhol","wiederhol"], strength : "weak", preteriteStem : "wiederhol", pastPart : "gewiederholt", aux : "haben"},
-    lehren : {verb : "lehren", english : "teach", prep : "", presentStem : ["lehr","lehr"], strength : "weak", preteriteStem : "lehr", pastPart : "gelehrt", aux : "haben"},
-    studieren : {verb : "studieren", english : "study", prep : "", presentStem : ["studier","studier"], strength : "studier", preteriteStem : "studier", pastPart : "studiert", aux : "haben"},
-    ausruhen : {verb : "ausruhen", english : "rest", prep : "aus", presentStem : ["ruh","ruh"], strength : "weak", preteriteStem : "ruh", pastPart : "ausgeruht", aux : "haben"},
-    erlauben : {verb : "erlauben", english : "allow", prep : "", presentStem : ["erlaub","erlaub"], strength : "weak", preteriteStem : "erlaub", pastPart : "erlaubt", aux : "haben"},
-    glauben : {verb : "glauben", english : "believe", prep : "", presentStem : ["glaub","glaub"], strength : "weak", preteriteStem : "glaub", pastPart : "geglaubt", aux : "haben"},
-    hoffen : {verb : "hoffen", english : "hope", prep : "", presentStem : ["hoff","hoff"], strength : "weak", preteriteStem : "hoff", pastPart : "gehofft", aux : "haben"},
-    tanzen : {verb : "tanzen", english : "dance", prep : "", presentStem : ["tanz","tanz"], strength : "weak", preteriteStem : "tanz", pastPart : "getanzt", aux : "haben,sein"},
-    bewegen : {verb : "bewegen", english : "move", prep : "", presentStem : ["beweg","beweg"], strength : "strong", preteriteStem : "bewog", pastPart : "bewogen", aux : "haben"},
-    kämpfen : {verb : "kämpfen", english : "fight", prep : "", presentStem : ["kämpf","kämpf"], strength : "weak", preteriteStem : "kämpf", pastPart : "gekämpft", aux : "haben"},
-    auswählen : {verb : "auswählen", english : "choose", prep : "aus", presentStem : ["wähl","wähl"], strength : "weak", preteriteStem : "wähl", pastPart : "ausgewählt", aux : "haben"},
-    hassen : {verb : "hassen", english : "hate", prep : "", presentStem : ["hass","hass"], strength : "weak", preteriteStem : "hass", pastPart : "gehasst", aux : "haben"},
-    lieben : {verb : "lieben", english : "love", prep : "", presentStem : ["lieb","lieb"], strength : "weak", preteriteStem : "lieb", pastPart : "geliebt", aux : "haben"},
-    bevorzugen : {verb : "bevorzugen", english : "prefer", prep : "", presentStem : ["bevorzug","bevorzug"], strength : "weak", preteriteStem : "bevorzug", pastPart : "bevorzugt", aux : "haben"},
-    lachen : {verb : "lachen", english : "laugh", prep : "", presentStem : ["lach","lach"], strength : "weak", preteriteStem : "lach", pastPart : "gelacht", aux : "haben"},
-    weinen : {verb : "weinen", english : "cry", prep : "", presentStem : ["wein","wein"], strength : "weak", preteriteStem : "wein", pastPart : "geweint", aux : "haben"},
-    versuchen : {verb : "versuchen", english : "try", prep : "", presentStem : ["versuch","versuch"], strength : "weak", preteriteStem : "versuch", pastPart : "versucht", aux : "haben"},
-    üben : {verb : "üben", english : "practice", prep : "", presentStem : ["üb","üb"], strength : "weak", preteriteStem : "üb", pastPart : "geübt", aux : "haben"},
-    berühen : {verb : "berühen", english : "touch", prep : "", presentStem : ["berüh","berüh"], strength : "weak", preteriteStem : "berüh", pastPart : "berüht", aux : "haben"},
-    drücken : {verb : "drücken", english : "press", prep : "", presentStem : ["drück","drück"], strength : "weak", preteriteStem : "drück", pastPart : "gedrückt", aux : "haben"},
-    leben : {verb : "leben", english : "live", prep : "", presentStem : ["leb","leb"], strength : "weak", preteriteStem : "leb", pastPart : "gelebt", aux : "haben"},
-    fühlen : {verb : "fühlen", english : "feel", prep : "", presentStem : ["fühl","fühl"], strength : "weak", preteriteStem : "fühl", pastPart : "gefühlt", aux : "haben"},
-    spielen : {verb : "spielen", english : "play", prep : "", presentStem : ["spiel","spiel"], strength : "weak", preteriteStem : "spiel", pastPart : "gespielt", aux : "haben"},
-    kaufen : {verb : "kaufen", english : "buy, purchase", prep : "", presentStem : ["kauf","kauf"], strength : "weak", preteriteStem : "kauf", pastPart : "gekauft", aux : "haben"},
-    verkaufen : {verb : "verkaufen", english : "sell", prep : "", presentStem : ["verkauf","verkauf"], strength : "weak", preteriteStem : "verkauf", pastPart : "verkauft", aux : "haben"},
-    kosten : {verb : "kosten", english : "cost, taste", prep : "", presentStem : ["kost","koste"], strength : "weak", preteriteStem : "koste", pastPart : "gekostet", aux : "haben"},
-    benutzen : {verb : "benutzen", english : "use", prep : "", presentStem : ["benutz","benutz"], strength : "weak", preteriteStem : "benutz", pastPart : "benutzt", aux : "haben"},
-    handeln : {verb : "handeln", english : "act, trade", prep : "", presentStem : ["handel","handel"], strength : "weak", preteriteStem : "handel", pastPart : "gehandelt", aux : "haben"},
-    verbessern : {verb : "verbessern", english : "improve", prep : "", presentStem : ["verbesser","verbesser"], strength : "weak", preteriteStem : "verbesser", pastPart : "verbessert", aux : "haben"},
-    lächeln : {verb : "lächeln", english : "smile", prep : "", presentStem : ["lächel","lächel"], strength : "weak", preteriteStem : "lächel", pastPart : "gelächelt", aux : "haben"},
-    arbeiten : {verb : "arbeiten", english : "work", prep : "", presentStem : ["arbeit","arbeite"], strength : "weak", preteriteStem : "arbeite", pastPart : "gearbeitet", aux : "haben"},
-    antworten : {verb : "antworten", english : "answer", prep : "", presentStem : ["antwort","antworte"], strength : "weak", preteriteStem : "antworte", pastPart : "geantwortet", aux : "haben"},
-    schalten : {verb : "schalten", english : "switch", prep : "", presentStem : ["schalt","schalte"], strength : "weak", preteriteStem : "schalte", pastPart : "geschaltet,geschalten", aux : "haben"},
+    //: {english: "", strength : "", thirdSgPres : "", pastStem : "", pastPart : "", pastSubj : "", aux : ""},
+    sein: {english: "be", strength : "irregular", thirdSgPres : "ist", pastStem : "war", pastPart : "gewesen", pastSubj : "wäre", aux : "sein"},
+    haben: {english: "have", strength : "irregular", thirdSgPres : "hat", pastStem : "hatte", pastPart : "gehabt", pastSubj : "hätte", aux : "haben"},
+    werden : {english: "will", strength : "irregular", thirdSgPres : "wird", pastStem : "wurde", pastPart : "geworden", pastSubj : "worden", aux : "sein"},
+    kommen : {english: "come", strength : "strong", thirdSgPres : "kommt", pastStem : "kam", pastPart : "gekommen", pastSubj : "käme", aux : "sein"},
+    ankommen : {english: "arrive", strength : "strong", thirdSgPres : "kommt an", pastStem : "kam an", pastPart : "angekommen", pastSubj : "käme an", aux : "sein"},
+    verlassen : {english: "leave", strength : "strong", thirdSgPres : "verlässt", pastStem : "verließ", pastPart : "verlassen", pastSubj : "verließe", aux : "haben"},
+    fahren : {english: "go, drive", strength : "strong", thirdSgPres : "fährt", pastStem : "fuhr", pastPart : "gefahren", pastSubj : "führe", aux : "sein,haben"},
+    halten : {english: "hold, stop", strength : "strong", thirdSgPres : "hält", pastStem : "hielt", pastPart : "gehalten", pastSubj : "hielte", aux : "haben"},
+    schlafen : {english: "sleep", strength : "strong", thirdSgPres : "schläft", pastStem : "schlief", pastPart : "geschlafen", pastSubj : "schliefe", aux : "haben"},
+    erhalten : {english: "recieve", strength : "strong", thirdSgPres : "erhält", pastStem : "erhielt", pastPart : "erhalten", pastSubj : "erhielte", aux : "haben"},
+    fangen : {english: "catch", strength : "strong", thirdSgPres : "fängt", pastStem : "fing", pastPart : "gefangen", pastSubj : "finge", aux : "haben"},
+    anfangen : {english: "begin", strength : "strong", thirdSgPres : "fängt an", pastStem : "fing an", pastPart : "angefangen", pastSubj : "finge an", aux : "haben, sein"},
+    fallen : {english: "fall, drop", strength : "strong", thirdSgPres : "fällt", pastStem : "fiel", pastPart : "gefallen", pastSubj : "fiele", aux : "sein"},
+    vergessen : {english: "forget", strength : "strong", thirdSgPres : "vergisst", pastStem : "vergaß", pastPart : "vergassen", pastSubj : "vergäße", aux : "haben"},
+    essen : {english: "eat", strength : "strong", thirdSgPres : "isst", pastStem : "aß", pastPart : "gegessen", pastSubj : "äße", aux : "habe"},
+    sterben : {english: "die", strength : "strong", thirdSgPres : "stirbt", pastStem : "starb", pastPart : "gestorben", pastSubj : "stürbe", aux : "sein"},
+    nehmen : {english: "take", strength : "strong", thirdSgPres : "nimmt", pastStem : "nahm", pastPart : "genommen", pastSubj : "nähme", aux : "haben"},
+    geschehen : {english: "occur, happen", strength : "strong", thirdSgPres : "geschieht", pastStem : "geschah", pastPart : "geschehen", pastSubj : "geschähe", aux : "sein"},
+    helfen : {english: "help", strength : "strong", thirdSgPres : "hilft", pastStem : "half", pastPart : "geholfen", pastSubj : "hülfe", aux : "haben"},
+    lesen : {english: "read", strength : "strong", thirdSgPres : "liest", pastStem : "las", pastPart : "gelesen", pastSubj : "läse", aux : "haben"},
+    sprechen : {english: "speak", strength : "strong", thirdSgPres : "spricht", pastStem : "sprach", pastPart : "gesprochen", pastSubj : "spräche", aux : "haben"},
+    geben : {english: "give", strength : "strong", thirdSgPres : "gibt", pastStem : "gab", pastPart : "gegeben", pastSubj : "gäbe", aux : "haben"},
+    treffen : {english: "meet", strength : "strong", thirdSgPres : "trifft", pastStem : "traf", pastPart : "getroffen", pastSubj : "träfe", aux : "haben"},
+    sehen : {english: "see", strength : "strong", thirdSgPres : "sieht", pastStem : "sah", pastPart : "gesehen", pastSubj : "sähe", aux : "haben"},
+    können : {english: "can", strength : "prt-prs", thirdSgPres : "kann", pastStem : "konnte", pastPart : "gekonnt", pastSubj : "könnte", aux : "haben"},
+    müssen : {english: "must", strength : "prt-prs", thirdSgPres : "muss", pastStem : "musste", pastPart : "gemusst", pastSubj : "müsste", aux : "haben"},
+    wollen : {english: "want, wish", strength : "prt-prs", thirdSgPres : "will", pastStem : "wollte", pastPart : "gewollt", pastSubj : "wollte", aux : "haben"},
+    wissen : {english: "know", strength : "prt-prs", thirdSgPres : "weiß", pastStem : "wusste", pastPart : "gewusst", pastSubj : "wüsste", aux : "haben"},
+    tun : {english: "do", strength : "irregular", thirdSgPres : "tut", pastStem : "tat", pastPart : "getan", pastSubj : "täte", aux : "haben"},
+    gehen : {english: "go, walk", strength : "strong", thirdSgPres : "geht", pastStem : "ging", pastPart : "gegangen", pastSubj : "ginge", aux : "sein"},
+    schreiben : {english: "write", strength : "strong", thirdSgPres : "schreibt", pastStem : "schrieb", pastPart : "geschieben", pastSubj : "schriebe", aux : "haben"},
+    erkennen : {english: "recognize", strength : "weak", thirdSgPres : "erkennt", pastStem : "erkannte", pastPart : "erkannt", pastSubj : "erkennte", aux : "haben"},
+    beschreiben : {english: "describe", strength : "strong", thirdSgPres : "beschreibt", pastStem : "beschrieb", pastPart : "beschrieben", pastSubj : "schriebe", aux : "haben"},
+    schreien : {english: "shout, yell", strength : "strong", thirdSgPres : "schreit", pastStem : "schrie", pastPart : "geschrien", pastSubj : "schrie", aux : "haben"},
+    trinken : {english: "drink", strength : "strong", thirdSgPres : "trinkt", pastStem : "trank", pastPart : "getrunken", pastSubj : "tränke", aux : "haben"},
+    denken : {english: "think", strength : "weak", thirdSgPres : "denkt", pastStem : "dachte", pastPart : "gedacht", pastSubj : "dächte", aux : "haben"},
+    entscheiden : {english: "decide", strength : "strong", thirdSgPres : "entscheidet", pastStem : "entschied", pastPart : "entschieden", pastSubj : "entschiede", aux : "haben"},
+    verstehen : {english: "understand", strength : "strong", thirdSgPres : "versteht", pastStem : "verstand", pastPart : "verstanden", pastSubj : "verstände", aux : "haben"},
+    finden : {english: "find", strength : "strong", thirdSgPres : "findet", pastStem : "fand", pastPart : "gefunden", pastSubj : "fände", aux : "haben"},
+    singen : {english: "sing", strength : "strong", thirdSgPres : "singt", pastStem : "sang", pastPart : "gesungen", pastSubj : "sänge", aux : "haben"},
+    sitzen : {english: "sit", strength : "strong", thirdSgPres : "sitzt", pastStem : "saß", pastPart : "gesessen", pastSubj : "säße", aux : "haben"},
+    lügen : {english: "lie", strength : "strong", thirdSgPres : "lügt", pastStem : "log", pastPart : "gelogen", pastSubj : "löge", aux : "haben"},
+    anbieten : {english: "offer, provide", strength : "strong", thirdSgPres : "bietet an", pastStem : "bot an", pastPart : "angeboten", pastSubj : "böte an", aux : "haben"},
+    bringen : {english: "bring", strength : "weak", thirdSgPres : "bringt", pastStem : "brachte", pastPart : "gebracht", pastSubj : "brächte", aux : "haben"},
+    brennen : {english: "burn, light on fire", strength : "weak", thirdSgPres : "brennt", pastStem : "brannte", pastPart : "gebrannt", pastSubj : "brennte", aux : "haben"},
+    schneiden : {english: "cut, carve, slice", strength : "strong", thirdSgPres : "schneidet", pastStem : "schnitt", pastPart : "geschnitten", pastSubj : "schnitte", aux : "haben"},
+    beginnen : {english: "begin", strength : "strong", thirdSgPres : "beginnt", pastStem : "begann", pastPart : "begonnen", pastSubj : "begänne, begönne", aux : "haben"},
+    gewinnen : {english: "win", strength : "strong", thirdSgPres : "gewinnt", pastStem : "gewann", pastPart : "gewonnen", pastSubj : "gewänne, gewönne", aux : "haben"},
+    bleiben : {english: "remain, continue, stay", strength : "strong", thirdSgPres : "bleibt", pastStem : "blieb", pastPart : "geblieben", pastSubj : "bliebe", aux : "sein"},
+    rennen : {english: "run", strength : "weak", thirdSgPres : "rennt", pastStem : "rannte", pastPart : "gerannt", pastSubj : "rennte", aux : "haben, sein"},
+    verlieren : {english: "lose", strength : "strong", thirdSgPres : "verliert", pastStem : "verlor", pastPart : "verloren", pastSubj : "verlöre", aux : "haben"},
+    rufen : {english: "call out, shout", strength : "strong", thirdSgPres : "ruft", pastStem : "rief", pastPart : "gerufen", pastSubj : "riefe", aux : "haben"},
+    heißen : {english: "be named, be called", strength : "strong", thirdSgPres : "heißt", pastStem : "hieß", pastPart : "geheißen", pastSubj : "heiße", aux : "haben"},
+    lernen : {english: "learn", strength : "weak", thirdSgPres : "lernt", pastStem : "lernte", pastPart : "gelernt", pastSubj : "haben", aux : "lernte"},
+    machen : {english: "make", strength : "weak", thirdSgPres : "macht", pastStem : "machte", pastPart : "gemacht", pastSubj : "machte", aux : "haben"},
+    besuchen : {english: "visit, see", strength : "weak", thirdSgPres : "besucht", pastStem : "besuchte", pastPart : "besucht", pastSubj : "besuchte", aux : "haben"},
+    reisen : {english: "travel", strength : "weak", thirdSgPres : "reist", pastStem : "reiste", pastPart : "gereist", pastSubj : "reiste", aux : "sein"},
+    brauchen : {english: "need", strength : "weak", thirdSgPres : "braucht", pastStem : "brauchte", pastPart : "begraucht", pastSubj : "brauchte, bräuchte", aux : "haben"},
+    legen : {english: "lay, put, place", strength : "weak", thirdSgPres : "legt", pastStem : "legte", pastPart : "gelegt", pastSubj : "legte", aux : "haben"},
+    zeigen : {english: "point at, demonstrate, show", strength : "weak", thirdSgPres : "zeigt", pastStem : "zeigte", pastPart : "gezeigt", pastSubj : "zeigte", aux : "haben"},
+    hören : {english: "hear", strength : "weak", thirdSgPres : "hört", pastStem : "hörte", pastPart : "gehört", pastSubj : "hört", aux : "haben"},
+    schauen : {english: "look at, watch, view", strength : "weak", thirdSgPres : "schaut", pastStem : "schaute", pastPart : "geschaut", pastSubj : "schaute", aux : "haben"},
+    sagen : {english: "say, tell", strength : "weak", thirdSgPres : "sagt", pastStem : "sagte", pastPart : "gesagt", pastSubj : "sagte", aux : "haben"},
+    erklären : {english: "explain", strength : "weak", thirdSgPres : "erklärt", pastStem : "erklärte", pastPart : "erklärt", pastSubj : "erklärte", aux : "haben"},
+    erzählen : {english: "tell, narrate, recount", strength : "weak", thirdSgPres : "erzählt", pastStem : "erzählte", pastPart : "erzählt", pastSubj : "erzählte", aux : "haben"},
+    fragen : {english: "ask", strength : "weak", thirdSgPres : "fragt", pastStem : "fragte", pastPart : "gefragt", pastSubj : "fragte,früge", aux : "haben"},
+    reden : {english: "talk", strength : "weak", thirdSgPres : "redet", pastStem : "redete", pastPart : "geredet", pastSubj : "redete", aux : "haben"},
+    wiederholen : {english: "repeat", strength : "weak", thirdSgPres : "wiederholt", pastStem : "wiederholte", pastPart : "wiederholt", pastSubj : "wiederholte", aux : "haben"},
+    lehren : {english: "teach", strength : "weak", thirdSgPres : "lehrt", pastStem : "lehrte", pastPart : "gelehrt", pastSubj : "lehrte", aux : "haben"},
+    studieren : {english: "study", strength : "weak", thirdSgPres : "studiert", pastStem : "studierte", pastPart : "studiert", pastSubj : "studierte", aux : "haben"},
+    ausruhen : {english: "rest, recover", strength : "weak", thirdSgPres : "ruht aus", pastStem : "ruhte aus", pastPart : "ausgeruht", pastSubj : "ruhte aus", aux : "haben"},
+    erlauben : {english: "allow, permit", strength : "weak", thirdSgPres : "erlaubt", pastStem : "erlaubte", pastPart : "erlaubt", pastSubj : "erlaubte", aux : "haben"},
+    glauben : {english: "believe", strength : "weak", thirdSgPres : "glaubt", pastStem : "glaubte", pastPart : "geglaubt", pastSubj : "glaubte", aux : "haben"},
+    hoffen : {english: "hope", strength : "weak", thirdSgPres : "hofft", pastStem : "hoffte", pastPart : "gehofft", pastSubj : "hoffte", aux : "haben"},
+    tanzen : {english: "dance", strength : "weak", thirdSgPres : "tanzt", pastStem : "tanzte", pastPart : "getanzt", pastSubj : "tanzte", aux : "haben"},
+    bewegen : {english: "motivate, persuade", strength : "strong", thirdSgPres : "bewegt", pastStem : "bewog", pastPart : "bewogen", pastSubj : "bewöge", aux : "haben"},
+    kämpfen : {english: "fight, struggle", strength : "weak", thirdSgPres : "kämpft", pastStem : "kämpfte", pastPart : "gekämpft", pastSubj : "kämpfte", aux : "haben"},
+    auswählen : {english: "choose, select, pick", strength : "weak", thirdSgPres : "wählt aus", pastStem : "wählte aus", pastPart : "ausgewählt", pastSubj : "wählte aus", aux : "haben"},
+    hassen : {english: "hate", strength : "weak", thirdSgPres : "hasst", pastStem : "hasste", pastPart : "gehasst", pastSubj : "hasste", aux : "haben"},
+    lieben : {english: "love", strength : "weak", thirdSgPres : "liebt", pastStem : "liebte", pastPart : "geliebt", pastSubj : "liebte", aux : "haben"},
+    bevorzugen : {english: "favor, prefer", strength : "weak", thirdSgPres : "bevorzugt", pastStem : "bevorzugte", pastPart : "bevorzugt", pastSubj : "bevorzugte", aux : "haben"},
+    lachen : {english: "laugh", strength : "weak", thirdSgPres : "lacht", pastStem : "lachte", pastPart : "gelacht", pastSubj : "lachte", aux : "haben"},
+    weinen : {english: "cry, weep", strength : "weak", thirdSgPres : "weint", pastStem : "weinte", pastPart : "geweint", pastSubj : "weinte", aux : "haben"},
+    versuchen : {english: "try, taste", strength : "weak", thirdSgPres : "versucht", pastStem : "versuchte", pastPart : "versucht", pastSubj : "versuchte", aux : "haben"},
+    üben : {english: "practice", strength : "weak", thirdSgPres : "übt", pastStem : "übte", pastPart : "geübt", pastSubj : "übte", aux : "haben"},
+    berühren : {english: "touch", strength : "weak", thirdSgPres : "berührt", pastStem : "berührte", pastPart : "berührt", pastSubj : "berührte", aux : "haben"},
+    drücken : {english: "press, push", strength : "weak", thirdSgPres : "drückt", pastStem : "drückte", pastPart : "gedrückt", pastSubj : "drückte", aux : "haben"},
+    leben : {english: "live", strength : "weak", thirdSgPres : "lebt", pastStem : "lebte", pastPart : "gelebt", pastSubj : "lebte", aux : "haben"},
+    fühlen : {english: "feel", strength : "weak", thirdSgPres : "fühlt", pastStem : "fühlte", pastPart : "gefühlt", pastSubj : "fühlte", aux : "haben"},
+    spielen : {english: "play", strength : "weak", thirdSgPres : "spielt", pastStem : "spielte", pastPart : "gespielt", pastSubj : "spielte", aux : "haben"},
+    kaufen : {english: "buy, purchase", strength : "weak", thirdSgPres : "kauft", pastStem : "kaufte", pastPart : "gekauft", pastSubj : "kaufte", aux : "haben"},
+    verkaufen : {english: "sell", strength : "weak", thirdSgPres : "verkauft", pastStem : "verkaufte", pastPart : "verkauft", pastSubj : "verkaufte", aux : "haben"},
+    kosten : {english: "cost", strength : "weak", thirdSgPres : "kostet", pastStem : "kostete", pastPart : "gekostet", pastSubj : "kostete", aux : "haben"},
+    benutzen : {english: "use", strength : "weak", thirdSgPres : "benutzt", pastStem : "benutzte", pastPart : "benutzt", pastSubj : "benutzte", aux : "haben"},
+    handeln : {english: "act, take action", strength : "weak", thirdSgPres : "handelt", pastStem : "handelte", pastPart : "gehandelt", pastSubj : "handelte", aux : "haben"},
+    verbessern : {english: "improve, make better", strength : "weak", thirdSgPres : "verbessert", pastStem : "verbesserte", pastPart : "verbessert", pastSubj : "verbesserte", aux : "haben"},
+    lächeln : {english: "smile", strength : "weak", thirdSgPres : "lächelt", pastStem : "lächelte", pastPart : "gelächelt", pastSubj : "lächelte", aux : "haben"},
+    arbeiten : {english: "work", strength : "weak", thirdSgPres : "arbeitet", pastStem : "arbeitete", pastPart : "gearbeitet", pastSubj : "arbeitet", aux : "haben"},
+    antworten : {english: "answer, reply", strength : "weak", thirdSgPres : "antwortet", pastStem : "antwortete", pastPart : "geantwortet", pastSubj : "antwortete", aux : "haben"},
+    schalten : {english: "switch", strength : "weak", thirdSgPres : "schaltet", pastStem : "schaltete", pastPart : "geschaltet", pastSubj : "schaltete", aux : "haben"}
 }
 
 const dissalloweds = [
@@ -203,21 +210,39 @@ const tenses = {
     futurePerfect : ["morgen … [prs] wohl vor Mittag … …","morgen vor Mittag",""]
  }
 
- function conjugate(vrb, english, prep, presentStem, strength, preteriteStem, pastPart, aux, pers, ten) {
+ function conjugate(inf, english, strength, thirdSgPres, pastStem, pastPart, pastSubj, aux, pers, ten) {
+    var verbArray = thirdSgPres.split(" ")
+    var prep = verbArray[1]
+    if (inf.startsWith(prep)) {
+        var preplessInf = inf.replace(prep, "")
+    } else preplessInf = inf
+    if (preplessInf.endsWith("en")) {
+        var stem = preplessInf.substring(0, preplessInf.length - 2)
+    }
+    else {
+        var stem = preplessInf.substring(0, preplessInf.length - 1)
+    }
+    var irregStem = verbArray[0]
+    if (strength != "prt-prs") {irregStem = irregStem.substring(0, irregStem.length - 1)}
+    if (prep === undefined) {
+        prep = ""
+    }
+    pastStem = pastStem.split(" ")[0]
+
     let conjugated = ""
     switch (ten) {
-        case 'present' : conjugated = conjugateWhichPRS(prep, strength, presentStem, pers); break
-        case 'preterit' : conjugated = conjugatePRT(prep, strength, preteriteStem, pers); break
+        case 'present' : conjugated = conjugatePRS(preplessInf, stem, strength, irregStem, prep, pers); break
+        case 'preterit' : conjugated = conjugatePRT(prep, strength, pastStem, pers); break
         case 'perfect' : conjugated = conjugatePRF(pastPart, aux, pers); break
         case 'pluperfect' : conjugated = conjugatePPRF(pastPart, aux, pers); break
-        case 'future' : conjugated = conjugateFUTI(vrb, pers); break
+        case 'future' : conjugated = conjugateFUTI(inf, pers); break
         case 'futurePerfect' :  conjugated = conjugateFUTII(pastPart, aux, pers); break
     }
     try {
-        if (irregs[vrb][ten][pers] === undefined) {
+        if (irregs[inf][ten][pers] === undefined) {
             return conjugated
         } else
-        conjugated = irregs[vrb][ten][pers]
+        conjugated = irregs[inf][ten][pers]
         return conjugated
     } catch (e) {
         switch (conjugated) {
@@ -236,51 +261,50 @@ const tenses = {
     }
 }
 
-function conjugateWhichPRS(prep, strength, presentStem, pers) {
+function conjugatePRS(preplessInf, stem, strength, irregStem, prep, pers) {
+    if (stem.endsWith("d") || stem.endsWith("t")) {
+        var secondPlStem = stem + "e"
+    } else secondPlStem = stem
+
+    if (strength === "prt-prs") {return conjugateStrPRT(prep, irregStem, pers)}
+    else switch (pers) {
+        case 'firstSg' : return (stem + "e" + " " + prep).trim()
+        case 'secondSg': return (irregStem + "st" + " " + prep).trim()
+        case 'thirdSg' : return (irregStem + "t" + " " + prep).trim()
+        case 'firstPl' : return (preplessInf + " " + prep).trim()
+        case 'secondPl': return (secondPlStem + "t" + " " + prep).trim()
+        case 'thirdPl' : return (preplessInf + " " + prep).trim()
+    }
+}
+
+function conjugatePRT(prep, strength, pastStem, pers) {
     switch (strength) {
-        case 'prt-prs' : return conjugateStrPRT(prep, presentStem[0], pers)
-        default : return conjugatePRS(prep, presentStem, pers)
+        case "weak" : return conjugateWeakPRT(prep, pastStem, pers)
+        case "strong" : return conjugateStrPRT(prep, pastStem, pers)
+        case "prt-prs" : return conjugateWeakPRT(prep, pastStem, pers)
     }
 }
 
-function conjugatePRS(prep, presentStem, pers) {
+function conjugateWeakPRT(prep, pastStem, pers) {
+    pastStem = pastStem.substring(0, pastStem.length - 2)
     switch (pers) {
-        case 'firstSg' : return (presentStem[0] + "e" + " " + prep).trim()
-        case 'secondSg': return (presentStem[1] + "st" + " " + prep).trim()
-        case 'thirdSg' : return (presentStem[1] + "t" + " " + prep).trim()
-        case 'firstPl' : return (presentStem[0] + "en" + " " + prep).trim()
-        case 'secondPl': return (presentStem[0] + "t" + " " + prep).trim()
-        case 'thirdPl' : return (presentStem[0] + "en" + " " + prep).trim()
+        case 'firstSg' : return (pastStem + "te" + " " + prep).trim()
+        case 'secondSg': return (pastStem + "test" + " " + prep).trim()
+        case 'thirdSg' : return (pastStem + "te" + " " + prep).trim()
+        case 'firstPl' : return (pastStem + "ten" + " " + prep).trim()
+        case 'secondPl': return (pastStem + "tet" + " " + prep).trim()
+        case 'thirdPl' : return (pastStem + "ten" + " " + prep).trim()
     }
 }
 
-function conjugatePRT(prep, strength, preteriteStem, pers) {
-    switch (strength) {
-        case "weak" : return conjugateWeakPRT(prep, preteriteStem, pers)
-        case "strong" : return conjugateStrPRT(prep, preteriteStem, pers)
-        case "prt-prs" : return conjugateWeakPRT(prep, preteriteStem, pers)
-    }
-}
-
-function conjugateWeakPRT(prep, preteriteStem, pers) {
+function conjugateStrPRT(prep, pastStem, pers) {
     switch (pers) {
-        case 'firstSg' : return (preteriteStem + "te" + " " + prep).trim()
-        case 'secondSg': return (preteriteStem + "test" + " " + prep).trim()
-        case 'thirdSg' : return (preteriteStem + "te" + " " + prep).trim()
-        case 'firstPl' : return (preteriteStem + "ten" + " " + prep).trim()
-        case 'secondPl': return (preteriteStem + "tet" + " " + prep).trim()
-        case 'thirdPl' : return (preteriteStem + "ten" + " " + prep).trim()
-    }
-}
-
-function conjugateStrPRT(prep, preteriteStem, pers) {
-    switch (pers) {
-        case 'firstSg' : return (preteriteStem + " " + prep).trim()
-        case 'secondSg': return (preteriteStem + "st" + " " + prep).trim()
-        case 'thirdSg' : return (preteriteStem + " " + prep).trim()
-        case 'firstPl' : return (preteriteStem + "en" + " " + prep).trim()
-        case 'secondPl': return (preteriteStem + "t" + " " + prep).trim()
-        case 'thirdPl' : return (preteriteStem + "en" + " " + prep).trim()
+        case 'firstSg' : return (pastStem + " " + prep).trim()
+        case 'secondSg': return (pastStem + "st" + " " + prep).trim()
+        case 'thirdSg' : return (pastStem + " " + prep).trim()
+        case 'firstPl' : return (pastStem + "en" + " " + prep).trim()
+        case 'secondPl': return (pastStem + "t" + " " + prep).trim()
+        case 'thirdPl' : return (pastStem + "en" + " " + prep).trim()
     }
 }
 
@@ -345,12 +369,3 @@ function randomTense() {
         return 'futurePerfect'
     }
 }
-
-/**
- * DISCORD - 1hr of conversation
- * ich - 739 (407.521) 51,9% 51 wir - 33 (31.451)  2,3%  3
- * du  - 266 (178.705) 18,6% 18	ihr - 12 (24.004)  1,0%  2
- * er  -  54  (25.308)  3,7%  3	Sie - 71 (43.197)  4,9%  4
- * sie -  23  (43.197)  1,6%  2	sie -  9 (43.197)  0,9%  2
- * es  - 216 (151.751) 15,1% 15
- */
