@@ -1,7 +1,7 @@
 const en = {
     name: 'english',
     parts : {
-        infinitve : '', presentParticiple : '', pastParticiple: ''
+        infinitive : '', presentParticiple : '', pastParticiple: ''
     },
     
     persons : {
@@ -296,7 +296,7 @@ const en = {
 
     irregs : {
         be: {
-            infinitve: "to be", presentParticiple : 'being', pastParticiple: 'been',
+            infinitive: "to be", presentParticiple : 'being', pastParticiple: 'been',
             present: {
                 firstSg : 'am',     firstPl : 'are',
                 secondSg: 'are',    secondPl: 'are',
@@ -320,47 +320,36 @@ const en = {
 
     conjugate: function(inf, pret, pastPart, person, tense) {
 
-        checkSilentE(inf)
-        checkCVC(inf)
-        checkCY(inf)
-        checkIE(inf)
-    
-        toInf = formToInfinitive(inf)
-        baseInf = formBareInfinitive(inf)
-    
-        presentParticple = formPresPart(baseInf)
-        preterit = formPreterit(baseInf, pret)
-        pastParticiple = formPastPart(baseInf, pastPart)
-        spellingEnding = ''
+        let principleParts = this.getPrincipleParts(inf, pret, pastPart, person, tense)
     
         let conjugated = ""
         switch (tense) {
-            case 'infinitve' : conjugated = baseInf; break
-            case 'presentParticiple' : conjugated = presentParticple; break
-            case 'pastParticiple' : conjugated = pastParticiple; break
+            case 'infinitive' : conjugated = principleParts.baseInf; break
+            case 'presentParticiple' : conjugated = principleParts.presentParticiple; break
+            case 'pastParticiple' : conjugated = principleParts.pastParticiple; break
     
-            case 'present': switch (person) {case 'thirdSg' : conjugated = form3PPres(baseInf); break; default: conjugated = baseInf}; break
-            case 'presCont': conjugated = en.irregs.be.present[person] + ' ' + presentParticple; break
-            case 'presPerf': conjugated = en.irregs.have.present[person] + ' ' + pastParticiple; break
-            case 'presPerfCont': conjugated = en.irregs.have.present[person] + ' ' + en.verbs.be.pastPart + ' ' + presentParticple; break
+            case 'present': switch (person) {case 'thirdSg' : conjugated = form3PPres(principleParts.baseInf); break; default: conjugated = principleParts.baseInf}; break
+            case 'presCont': conjugated = en.irregs.be.present[person] + ' ' + principleParts.presentParticiple; break
+            case 'presPerf': conjugated = en.irregs.have.present[person] + ' ' + principleParts.pastParticiple; break
+            case 'presPerfCont': conjugated = en.irregs.have.present[person] + ' ' + en.verbs.be.pastPart + ' ' + principleParts.presentParticiple; break
     
-            case 'preterit': conjugated = preterit; break
-            case 'pastCont': conjugated = en.irregs.be.preterit[person] + ' ' + presentParticple; break
-            case 'pastPerf': conjugated = en.verbs.have.preterit + ' ' + pastParticiple; break
-            case 'pastPeftCont': conjugated = en.verbs.have.preterit + ' ' + en.verbs.be.pastPart + ' ' + presentParticple; break
+            case 'preterit': conjugated = principleParts.preterit; break
+            case 'pastCont': conjugated = en.irregs.be.preterit[person] + ' ' + principleParts.presentParticiple; break
+            case 'pastPerf': conjugated = en.verbs.have.preterit + ' ' + principleParts.pastParticiple; break
+            case 'pastPeftCont': conjugated = en.verbs.have.preterit + ' ' + en.verbs.be.pastPart + ' ' + principleParts.presentParticiple; break
     
-            case 'futureWill': conjugated = 'will '  + baseInf; break
-            case 'futureShall': conjugated = 'shall ' + baseInf; break
-            case 'futureGoing': conjugated = en.irregs.be.present[person] + ' going ' + toInf; break
-            case 'futCont': conjugated = 'will be ' + presentParticple; break
-            case 'futPerf': conjugated = 'will have ' + pastParticiple; break
-            case 'futPerfCont': conjugated = 'will have ' + en.verbs.be.pastPart + ' ' + presentParticple; break
+            case 'futureWill': conjugated = 'will '  + principleParts.baseInf; break
+            case 'futureShall': conjugated = 'shall ' + principleParts.baseInf; break
+            case 'futureGoing': conjugated = en.irregs.be.present[person] + ' going ' + principleParts.toInf; break
+            case 'futCont': conjugated = 'will be ' + principleParts.presentParticiple; break
+            case 'futPerf': conjugated = 'will have ' + principleParts.pastParticiple; break
+            case 'futPerfCont': conjugated = 'will have ' + en.verbs.be.pastPart + ' ' + principleParts.presentParticiple; break
         }
         try {
-            if (en.irregs[baseInf][tense][person] === undefined) {
+            if (en.irregs[principleParts.baseInf][tense][person] === undefined) {
                 return conjugated
             } else
-            conjugated = en.irregs[baseInf][tense][person]
+            conjugated = en.irregs[principleParts.baseInf][tense][person]
             return conjugated
         } catch (e) {
             return conjugated
@@ -384,19 +373,57 @@ const en = {
     },
 
     getRandomPerson: function() {
-        return Object.keys(de.persons)[Math.floor(Math.random() * Object.keys(de.persons).length)]
+        return Object.keys(en.persons)[Math.floor(Math.random() * Object.keys(en.persons).length)]
+    },
+
+    getPronoun: function(person) {
+        if (en.persons[person][0] === undefined) {
+            return Object.values(en.persons[person])[Math.floor(Math.random() * Object.keys(en.persons[person]).length)]
+        } else {
+            return en.persons[person]
+        }
+    },
+
+    getPrincipleParts: function(inf, pret, pastPart) {
+        
+        // spell check functions
+        checkSilentE(inf)
+        checkCVC(inf)
+        checkCY(inf)
+        checkIE(inf)
+
+        // turn inf into a usable string
+        inf = formBareInfinitive(inf)
+
+        // populate optional parameters, if missing
+        if (!pret || pret === '') pret = en.verbs[inf].preterit
+        if (!pastPart || pastPart === '') pastPart = en.verbs[inf].pastPart
+
+        // populate principleParts object with each principle part
+        let principleParts = {
+            toInf: formToInfinitive(inf),
+            baseInf: formBareInfinitive(inf),
+        
+            presentParticiple: formPresPart(baseInf),
+            preterit: formPreterit(baseInf, pret),
+            pastParticiple: formPastPart(baseInf, pastPart)
+        }
+
+        // return spelling variable to empty
+        spellingEnding = ''
+        return principleParts
     }
 }
 
 var spellingEnding
 
 function formToInfinitive(inf) {
-    toInf = 'to ' + inf.split("'")[0] + inf.split("'")[1]
+    toInf = 'to ' + inf.replace("'", '')
     return toInf
 }
 
 function formBareInfinitive(inf) {
-    baseInf = inf.split("'")[0] + inf.split("'")[1]
+    baseInf = inf.replace("'", '')
     return baseInf
 }
 
@@ -446,9 +473,10 @@ function form3PPres(inf) {
 }
 
 function checkSilentE(inf) {
-    inf = inf.split("'")[0] + inf.split("'")[1]
+    inf = inf.replace("'", '')
     e = new RegExp("[aeiou][^aeiou]e\\b", "g")
-    if (e.test(inf)) {
+    ee = new RegExp("[vucg]e\\b", "g")
+    if (e.test(inf) || ee.test(inf)) {
         spellingEnding = 'silent e'
     }
 }
@@ -483,33 +511,33 @@ function conjugate(inf, pret, pastPart, person, tense) {
     toInf = formToInfinitive(inf)
     baseInf = formBareInfinitive(inf)
 
-    presentParticple = formPresPart(baseInf)
+    presentParticiple = formPresPart(baseInf)
     preterit = formPreterit(baseInf, pret)
     pastParticiple = formPastPart(baseInf, pastPart)
     spellingEnding = ''
 
     let conjugated = ""
     switch (tense) {
-        case 'infinitve' : conjugated = baseInf; break
-        case 'presentParticiple' : conjugated = presentParticple; break
+        case 'infinitove' : conjugated = baseInf; break
+        case 'presentParticiple' : conjugated = presentParticiple; break
         case 'pastParticiple' : conjugated = pastParticiple; break
 
         case 'present': switch (person) {case 'thirdSg' : conjugated = form3PPres(baseInf); break; default: conjugated = baseInf}; break
-        case 'presCont': conjugated = irregs.be.present[person] + ' ' + presentParticple; break
+        case 'presCont': conjugated = irregs.be.present[person] + ' ' + presentParticiple; break
         case 'presPerf': conjugated = irregs.have.present[person] + ' ' + pastParticiple; break
-        case 'presPerfCont': conjugated = irregs.have.present[person] + ' ' + verbs.be.pastPart + ' ' + presentParticple; break
+        case 'presPerfCont': conjugated = irregs.have.present[person] + ' ' + verbs.be.pastPart + ' ' + presentParticiple; break
 
         case 'preterit': conjugated = preterit; break
-        case 'pastCont': conjugated = irregs.be.preterit[person] + ' ' + presentParticple; break
+        case 'pastCont': conjugated = irregs.be.preterit[person] + ' ' + presentParticiple; break
         case 'pastPerf': conjugated = verbs.have.preterit + ' ' + pastParticiple; break
-        case 'pastPeftCont': conjugated = verbs.have.preterit + ' ' + verbs.be.pastPart + ' ' + presentParticple; break
+        case 'pastPeftCont': conjugated = verbs.have.preterit + ' ' + verbs.be.pastPart + ' ' + presentParticiple; break
 
         case 'futureWill': conjugated = 'will '  + baseInf; break
         case 'futureShall': conjugated = 'shall ' + baseInf; break
         case 'futureGoing': conjugated = irregs.be.present[person] + ' going ' + toInf; break
-        case 'futCont': conjugated = 'will be ' + presentParticple; break
+        case 'futCont': conjugated = 'will be ' + presentParticiple; break
         case 'futPerf': conjugated = 'will have ' + pastParticiple; break
-        case 'futPerfCont': conjugated = 'will have ' + verbs.be.pastPart + ' ' + presentParticple; break
+        case 'futPerfCont': conjugated = 'will have ' + verbs.be.pastPart + ' ' + presentParticiple; break
     }
     try {
         if (irregs[baseInf][tense][person] === undefined) {

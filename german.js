@@ -312,6 +312,27 @@ const de = {
 
     getRandomPerson: function() {
         return Object.keys(de.persons)[Math.floor(Math.random() * Object.keys(de.persons).length)]
+    },
+
+    getPronoun: function(person) {
+        if (de.persons[person][0] === undefined) {
+            return Object.values(de.persons[person])[Math.floor(Math.random() * Object.keys(de.persons[person]).length)]
+        } else {
+            return de.persons[person]
+        }
+    },
+
+    getPrincipleParts: function(verb) {
+
+        return principleParts = {
+            infinitive: de.verbs[verb].inf,
+            english: de.verbs[verb].english,
+            thirdPresSg: de.verbs[verb].thirdSgPres,
+            preterit: de.verbs[verb].pastStem,
+            pastParticiple: de.verbs[verb].pastPart,
+            subjuntive: de.verbs[verb].pastSubj,
+            auxiliary: de.verbs[verb].aux
+        }
     }
 }
 
