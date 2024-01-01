@@ -267,7 +267,7 @@ const en = {
         remember: {infintive: "re'member", preterit: '', pastPart: ''},
         love: {infintive: "lo've", preterit: '', pastPart: ''},
         consider: {infintive: "co'nsider", preterit: '', pastPart: ''},
-        appear: {infintive: "", preterit: '', pastPart: ''},
+        appear: {infintive: "appea'r", preterit: '', pastPart: ''},
         buy: {infintive: "bu'y", preterit: 'bought', pastPart: 'bought'},
         wait: {infintive: "wai't", preterit: '', pastPart: ''},
         serve: {infintive: "se'rve", preterit: '', pastPart: ''},
